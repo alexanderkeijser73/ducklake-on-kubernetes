@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: gizmosql
+  name: gizmosql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gizmosql
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: gizmosql
+    spec:
+      containers:
+      - image: gizmodata/gizmosql
+        name: gizmosql
+        resources: {}
+        env:
+        - name: GIZMOSQL_PASSWORD
+          value: gizmosql_password
+        - name: PRINT_QUERIES
+          value: "1"
+        - name: TLS_ENABLED
+          value: "1"
+        ports:
+        - containerPort: 31337
+          name: https
+status: {}
