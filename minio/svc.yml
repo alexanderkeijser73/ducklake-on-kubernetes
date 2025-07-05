@@ -1,17 +1,20 @@
 apiVersion: v1
 kind: Service
 metadata:
-  creationTimestamp: null
+  name: minio
+  namespace: default
   labels:
     app: minio
-  name: minio
 spec:
-  ports:
-  - port: 9001
-    protocol: TCP
-    targetPort: 9001
+  type: NodePort
   selector:
     app: minio
-  type: NodePort
-status:
-  loadBalancer: {}
+  ports:
+    - name: s3
+      port: 9000
+      targetPort: 9000
+      nodePort: 32295  # choose a free port
+    - name: console
+      port: 9001
+      targetPort: 9001
+      nodePort: 32296
